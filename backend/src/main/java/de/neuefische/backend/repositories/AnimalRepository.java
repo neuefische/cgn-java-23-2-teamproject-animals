@@ -14,7 +14,10 @@ public class AnimalRepository {
     public AnimalRepository() {
         this.animals = new ArrayList<>();
         animals.add(new Animal("1","Cat"));
+        animals.add(new Animal("2","Dog"));
+        animals.add(new Animal("3","Bird"));
     }
+
 
     public List<Animal> getAllAnimals() {
         return animals;

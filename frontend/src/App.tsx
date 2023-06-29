@@ -1,14 +1,14 @@
 import {useEffect, useState} from "react";
 import {Animal} from "./Animal.tsx";
+import axios from "axios";
 
 
 function App() {
     const [animals, setAnimals] = useState([]);
 
     useEffect(() => {
-        fetch('/api/animals')
-            .then((response) => response.json())
-            .then((data) => setAnimals(data))
+        axios.get('/api/animals')
+            .then((response) => setAnimals(response.data))
             .catch((error) => console.error(error));
     }, []);
 
