@@ -23,11 +23,11 @@ class AnimalServiceIntegrationTest {
 
     @Test
     @DirtiesContext
-    void get_list_of_products() throws Exception {
+    void get_list_of_animals() throws Exception {
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/animals"));
 
         resultActions.andExpect(status().isOk()).andReturn();
-        resultActions.andExpect(jsonPath("$", hasSize(0)));
+        resultActions.andExpect(jsonPath("$", hasSize(3)));
     }
 }
