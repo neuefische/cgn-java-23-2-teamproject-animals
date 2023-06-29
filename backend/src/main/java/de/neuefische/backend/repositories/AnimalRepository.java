@@ -13,6 +13,7 @@ public class AnimalRepository {
 
     public AnimalRepository() {
         this.animals = new ArrayList<>();
+        animals.add(new Animal("1","Cat"));
     }
 
     public List<Animal> getAllAnimals() {
