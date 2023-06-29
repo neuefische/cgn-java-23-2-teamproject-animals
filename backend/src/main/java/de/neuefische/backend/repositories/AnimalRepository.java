@@ -15,7 +15,7 @@ public class AnimalRepository {
         this.animals = new ArrayList<>();
     }
 
-    List<Animal> getAllAnimals() {
+    public List<Animal> getAllAnimals() {
         return animals;
     }
 
