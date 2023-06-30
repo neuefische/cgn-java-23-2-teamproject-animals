@@ -14,7 +14,7 @@ function App() {
 
     return (
     <><div>
-        {animals.map((animal:Animal)=>(<div>{animal.name}</div>))}
+        {animals.map((animal: Animal) => (<div key={animal.id}>{animal.name}</div>))}
     </div>
     </>
     )
