@@ -58,5 +58,27 @@ public class AnimalServiceTest {
 
     }
 
+    @Test
+    void returnAListofAnimalsWithOneAnimal() {
+        Animal a = new Animal("2", "cat");
+        when(animalService.addAnimal(a)).thenReturn(Arrays.asList(a));
+
+        // Call the method that interacts with the service
+        List<Animal> result = animalService.addAnimal(new Animal("2", "cat"));
+
+        // Assert the expected result
+        assertEquals(Arrays.asList(a), result);
+
+    }
+
+    @Test
+    void verifyAddAnimalWasCalled() {
+        // Call the method that interacts with the service
+        animalService.addAnimal(new Animal("2", "cat"));
+
+        // Verify that the method was called
+        verify(animalService).addAnimal(new Animal("2", "cat"));
+    }
+
 
 }
