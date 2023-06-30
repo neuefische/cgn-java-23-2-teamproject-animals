@@ -1,6 +1,10 @@
 import {useEffect, useState} from "react";
 import {Animal} from "./Animal.tsx";
 import axios from "axios";
+import {Box, Grid} from "@mui/material";
+import Header from "./Header.tsx";
+import ListContainer from "./ListContainer.tsx";
+import FormularContainer from "./FormularContainer.tsx";
 
 
 function App() {
@@ -20,16 +24,13 @@ function App() {
     }
 
     return (
-        <>
-            <div>
-                <form onSubmit={addAnimal}>
-                    <input type="text" value={name} onChange={(event) =>
-                        setName(event.target.value)}/>
-                    <button>add animal</button>
-                </form>
-                {animals.map((animal: Animal) => (<div key={animal.id}>{animal.name}</div>))}
-            </div>
-        </>
+        <Box sx={{flexGrow: 1}}>
+            <Grid container spacing={3} sx={{mt: 0, ml: 0}}>
+                <Header/>
+                <ListContainer/>
+                <FormularContainer/>
+            </Grid>
+        </Box>
     )
 }
 
