@@ -4,9 +4,7 @@ import de.neuefische.backend.models.Animal;
 import de.neuefische.backend.services.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +25,8 @@ public class AnimalController {
         return animalService.getAllAnimals();
     }
 
+    @PostMapping("/animal")
+    public List<Animal> addAnimal(@RequestBody Animal animal) {
+        return this.animalService.addAnimal(animal);
+    }
 }
