@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import {Animal} from "./Animal.tsx";
 import axios from "axios";
 import {Box, Grid} from "@mui/material";
 import Header from "./Header.tsx";
@@ -21,14 +20,16 @@ function App() {
             id: animals.length + 1,
             name
         }).then((response) => console.log(response.data)).catch(error => console.log(error))
+        setName("")
+        location.reload()
     }
 
     return (
         <Box sx={{flexGrow: 1}}>
             <Grid container spacing={3} sx={{mt: 0, ml: 0}}>
                 <Header/>
-                <ListContainer/>
-                <FormularContainer/>
+                <ListContainer animals={animals} name={name}/>
+                <FormularContainer addAnimal={addAnimal} name={name} setName={setName}/>
             </Grid>
         </Box>
     )

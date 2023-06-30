@@ -29,4 +29,6 @@ public class AnimalController {
     public List<Animal> addAnimal(@RequestBody Animal animal) {
         return this.animalService.addAnimal(animal);
     }
+
+
 }

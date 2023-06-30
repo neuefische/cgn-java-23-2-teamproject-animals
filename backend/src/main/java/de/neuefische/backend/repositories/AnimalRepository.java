@@ -22,6 +22,7 @@ public class AnimalRepository {
 
 
     public List<Animal> getAllAnimals() {
+
         return animals;
     }
 
