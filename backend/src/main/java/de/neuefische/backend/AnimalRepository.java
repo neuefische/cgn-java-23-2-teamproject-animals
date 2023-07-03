@@ -1,6 +1,5 @@
-package de.neuefische.backend.repositories;
+package de.neuefische.backend;
 
-import de.neuefische.backend.models.Animal;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -15,9 +14,13 @@ public class AnimalRepository {
         this.animals = new ArrayList<>();
     }
 
-    public List<Animal> addAnimal(Animal animal) {
+    public Animal addAnimal(Animal animal) {
         this.animals.add(animal);
-        return animals;
+        return animal;
+    }
+
+    public void delete(String id) {
+        animals.remove(id);
     }
 
 

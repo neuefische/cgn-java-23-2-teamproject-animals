@@ -1,8 +1,5 @@
-package de.neuefische.backend.services;
+package de.neuefische.backend;
 
-import de.neuefische.backend.models.Animal;
-import de.neuefische.backend.repositories.AnimalRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +9,16 @@ public class AnimalService {
 
     private final AnimalRepository animalRepository;
 
-    @Autowired
     public AnimalService() {
         this.animalRepository = new AnimalRepository();
     }
 
-    public List<Animal> addAnimal(Animal animal) {
+    public Animal addAnimal(Animal animal) {
         return animalRepository.addAnimal(animal);
+    }
+
+    public void delete(String id) {
+        animalRepository.delete(id);
     }
 
     public List<Animal> getAllAnimals() {

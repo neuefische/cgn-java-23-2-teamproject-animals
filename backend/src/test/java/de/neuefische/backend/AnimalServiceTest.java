@@ -1,7 +1,5 @@
 package de.neuefische.backend;
 
-import de.neuefische.backend.models.Animal;
-import de.neuefische.backend.services.AnimalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -17,7 +15,7 @@ import static org.mockito.Mockito.when;
 
 public class AnimalServiceTest {
     @Mock
-    private AnimalService animalService;
+    private AnimalRepository animalRepository;
 
     @BeforeEach
     void setup() {
@@ -26,59 +24,32 @@ public class AnimalServiceTest {
 
     @Test
     void returnEmptyArrayWhenListIsEmpty() {
-        when(animalService.getAllAnimals()).thenReturn(Arrays.asList());
-
-        // Call the method that interacts with the service
-        List<Animal> result = animalService.getAllAnimals();
-
-        // Assert the expected result
+        when(animalRepository.getAllAnimals()).thenReturn(Arrays.asList());
+        List<Animal> result = animalRepository.getAllAnimals();
         assertEquals(Arrays.asList(), result);
+        verify(animalRepository).getAllAnimals();
 
     }
-
-    @Test
-    void verifyServiceWasCalled() {
-        // Call the method that interacts with the service
-        animalService.getAllAnimals();
-
-        // Verify that the method was called
-        verify(animalService).getAllAnimals();
-    }
-
     @Test
     void returnAnimalWhenListNotEmpty() {
         Animal a = new Animal("1", "cat");
-        when(animalService.getAllAnimals()).thenReturn(Arrays.asList(a));
-
-        // Call the method that interacts with the service
-        List<Animal> result = animalService.getAllAnimals();
-
-        // Assert the expected result
+        when(animalRepository.getAllAnimals()).thenReturn(Arrays.asList(a));
+        List<Animal> result = animalRepository.getAllAnimals();
         assertEquals(Arrays.asList(a), result);
 
     }
-
     @Test
     void returnAListofAnimalsWithOneAnimal() {
         Animal a = new Animal("2", "cat");
-        when(animalService.addAnimal(a)).thenReturn(Arrays.asList(a));
+        when(animalRepository.addAnimal(a)).thenReturn(a);
 
-        // Call the method that interacts with the service
-        List<Animal> result = animalService.addAnimal(new Animal("2", "cat"));
 
-        // Assert the expected result
-        assertEquals(Arrays.asList(a), result);
+        Animal result = animalRepository.addAnimal(a);
+
+
+        assertEquals(a, result);
+        verify(animalRepository).addAnimal(a);
 
     }
-
-    @Test
-    void verifyAddAnimalWasCalled() {
-        // Call the method that interacts with the service
-        animalService.addAnimal(new Animal("2", "cat"));
-
-        // Verify that the method was called
-        verify(animalService).addAnimal(new Animal("2", "cat"));
-    }
-
 
 }

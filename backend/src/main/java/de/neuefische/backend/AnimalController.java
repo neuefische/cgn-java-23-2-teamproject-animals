@@ -1,16 +1,13 @@
-package de.neuefische.backend.controllers;
+package de.neuefische.backend;
 
-import de.neuefische.backend.models.Animal;
-import de.neuefische.backend.services.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/animals")
 public class AnimalController {
 
     private final AnimalService animalService;
@@ -20,14 +17,19 @@ public class AnimalController {
         this.animalService = animalService;
     }
 
-    @GetMapping("/animals")
+    @GetMapping()
     public List<Animal> getAllAnimals() {
         return animalService.getAllAnimals();
     }
 
-    @PostMapping("/animal")
-    public List<Animal> addAnimal(@RequestBody Animal animal) {
+    @PostMapping()
+    public Animal addAnimal(@RequestBody Animal animal) {
         return this.animalService.addAnimal(animal);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id) {
+        animalService.delete(id);
     }
 
 
