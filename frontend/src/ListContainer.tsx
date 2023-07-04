@@ -1,22 +1,14 @@
-import {Button, Grid, List, Paper, styled, Typography} from "@mui/material";
+import {Button, Grid, List, Paper, Typography} from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {Animal} from "./Animal.tsx";
+import {Animal, Item} from "./Utils.tsx";
 
 type Props = {
 
     animals: Animal[]
 }
 
-const Item = styled(Paper)(({theme}) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    margin: 4
-}));
 
 function ListContainer({animals}: Props) {
     return (
@@ -34,7 +26,7 @@ function ListContainer({animals}: Props) {
                                 padding: 2,
                                 margin: 2
                             }}>
-                                <Typography> {animal.name}</Typography>
+                                <Typography>{animal.name}</Typography>
                                 <Button variant="contained"
                                         size="small"
                                         sx={{textTransform: "none", margin: 1}}

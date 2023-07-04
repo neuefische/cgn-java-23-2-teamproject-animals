@@ -4,7 +4,7 @@ import {Box, Grid} from "@mui/material";
 import Header from "./Header.tsx";
 import ListContainer from "./ListContainer.tsx";
 import FormularContainer from "./FormularContainer.tsx";
-import {Animal} from "./Animal.tsx";
+import {Animal} from "./Utils.tsx";
 
 
 function App() {
