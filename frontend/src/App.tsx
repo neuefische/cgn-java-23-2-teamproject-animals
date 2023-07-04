@@ -4,10 +4,11 @@ import {Box, Grid} from "@mui/material";
 import Header from "./Header.tsx";
 import ListContainer from "./ListContainer.tsx";
 import FormularContainer from "./FormularContainer.tsx";
+import {Animal} from "./Animal.tsx";
 
 
 function App() {
-    const [animals, setAnimals] = useState([]);
+    const [animals, setAnimals] = useState<Animal[]>([]);
 
     useEffect(() => {
         axios.get('/api/animals')
@@ -15,20 +16,15 @@ function App() {
             .catch((error) => console.error(error));
     }, []);
 
-    // function addAnimal() {
-    //     axios.post("/api/animal", {
-    //         name
-    //     }).then((response) => setAnimals(response.data)).catch(error => console.log(error))
-    //     setName("")
-    //
-    // }
+    console.log(animals)
+
 
     return (
         <Box sx={{flexGrow: 1}}>
             <Grid container spacing={3} sx={{mt: 0, ml: 0}}>
                 <Header/>
-                <ListContainer animals={animals} name={name}/>
-                <FormularContainer addAnimal={addAnimal} name={name} setName={setName}/>
+                <ListContainer animals={animals}/>
+                <FormularContainer setAnimals={setAnimals}/>
             </Grid>
         </Box>
     )

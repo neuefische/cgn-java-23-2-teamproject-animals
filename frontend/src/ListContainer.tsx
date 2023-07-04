@@ -20,13 +20,13 @@ const Item = styled(Paper)(({theme}) => ({
 
 function ListContainer({animals}: Props) {
     return (
-        <Grid xs={5} sx={{mr: 2}}>
+        <Grid item xs={5} sx={{mr: 2}}>
             <Item sx={{height: "100vh", backgroundColor: "#35baf6"}}>
                 <List>
                     {
                         animals.map((animal) => (
 
-                            <Paper sx={{
+                            <Paper key={animal.id} sx={{
                                 height: 50,
                                 display: "flex",
                                 justifyContent: "space-between",

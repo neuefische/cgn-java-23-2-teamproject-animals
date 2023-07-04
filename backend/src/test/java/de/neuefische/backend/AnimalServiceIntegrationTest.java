@@ -10,10 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @SpringBootTest
@@ -23,27 +21,42 @@ class AnimalServiceIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    AnimalRepository animalRepository;
+
     @Test
     @DirtiesContext
-    void get_list_of_animals() throws Exception {
+    void test_getAnimals() throws Exception {
+        animalRepository.addAnimal(new Animal("1", "cat"));
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/animals"));
-
-        resultActions.andExpect(status().isOk()).andReturn();
-        resultActions.andExpect(jsonPath("$", hasSize(3)));
+        resultActions.andExpect(status().isOk());
+        resultActions.andExpect(jsonPath("$[0].id").value("1"));
     }
 
     @Test
     @DirtiesContext
-    void confirms_a_animal_was_added() throws Exception {
+    void test_AddAnimal() throws Exception {
         String requestBody = """
                 {"id":"1", "name":"dog"}
                 """;
-        ResultActions resultActions = mockMvc.perform(post("/api/animal")
+        ResultActions resultActions = mockMvc.perform(post("/api/animals")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody));
 
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(jsonPath("$", hasSize(1)));
+        resultActions.andExpect(content().json("""
+                {"id":"1", "name":"dog"}
+                """));
+    }
+
+    @Test
+    @DirtiesContext
+    void test_deleteAnimal() throws Exception {
+        animalRepository.addAnimal(new Animal("1", "cat"));
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.delete("/api/animals/1"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(result -> System.out.println(result.getResponse().getStatus()));
     }
 }

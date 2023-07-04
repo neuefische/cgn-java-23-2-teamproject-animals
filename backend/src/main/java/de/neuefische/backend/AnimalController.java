@@ -17,19 +17,19 @@ public class AnimalController {
         this.animalService = animalService;
     }
 
-    @GetMapping()
+    @GetMapping
     public List<Animal> getAllAnimals() {
         return animalService.getAllAnimals();
     }
 
-    @PostMapping()
+    @PostMapping
     public Animal addAnimal(@RequestBody Animal animal) {
         return this.animalService.addAnimal(animal);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) {
-        animalService.delete(id);
+    public void deleteAnimal(@PathVariable String id) {
+        animalService.deleteAnimal(id);
     }
 
 

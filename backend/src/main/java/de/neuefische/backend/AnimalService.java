@@ -1,24 +1,23 @@
 package de.neuefische.backend;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AnimalService {
 
-    private final AnimalRepository animalRepository;
 
-    public AnimalService() {
-        this.animalRepository = new AnimalRepository();
-    }
+    private final AnimalRepository animalRepository;
 
     public Animal addAnimal(Animal animal) {
         return animalRepository.addAnimal(animal);
     }
 
-    public void delete(String id) {
-        animalRepository.delete(id);
+    public void deleteAnimal(String id) {
+        animalRepository.deleteAnimal(id);
     }
 
     public List<Animal> getAllAnimals() {

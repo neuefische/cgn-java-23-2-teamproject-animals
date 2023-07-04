@@ -5,8 +5,8 @@ import axios from "axios";
 
 
 type Props = {
-    setAnimals: React.Dispatch<React.SetStateAction<Animal[]>>
-    addAnimal: () => void,
+    setAnimals: React.Dispatch<React.SetStateAction<Animal[]>>;
+
 }
 
 
@@ -19,20 +19,21 @@ const Item = styled(Paper)(({theme}) => ({
     margin: 4
 }));
 
-function FormularContainer({addAnimal, setAnimals}: Props) {
+function FormularContainer({setAnimals}: Props) {
 
     const [name, setName] = useState("")
 
     function addAnimal() {
-        axios.post("/api/animal", {
+        axios.post("/api/animals", {
             name
-        }).then((response) => setAnimals(response.data)).catch(error => console.log(error))
-        setName("")
-
+        }).then((response) => {
+            setAnimals(response.data)
+            setName("")
+        }).catch(error => console.log(error))
     }
 
     return (
-        <Grid xs={6} sx={{mr: 2}}>
+        <Grid item xs={6} sx={{mr: 2}}>
             <Item sx={{mh: 100, backgroundColor: "#35baf6"}}>
                 <Typography>Neues Tier hinzufügen</Typography>
                 <form onSubmit={addAnimal} style={{display: "flex", flexDirection: "column"}}>

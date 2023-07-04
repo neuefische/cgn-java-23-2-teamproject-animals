@@ -12,7 +12,7 @@ const Item = styled(Paper)(({theme}) => ({
 
 function Header() {
     return (
-        <Grid xs={12}>
+        <Grid item xs={12}>
             <Item sx={{height: 100, backgroundColor: "#35baf6"}}>
                 <Typography>Header: Tier Management Application -standard willkommensbild: ein tier -
                     tiergruppenfoto?</Typography>
