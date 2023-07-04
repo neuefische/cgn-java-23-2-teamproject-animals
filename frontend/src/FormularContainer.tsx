@@ -39,7 +39,7 @@ function FormularContainer({setAnimals}: Props) {
                 <form onSubmit={addAnimal} style={{display: "flex", flexDirection: "column"}}>
                     <TextField label="Animal Name" variant="outlined" value={name}
                                onChange={(event) => setName(event.target.value)}/>
-                    <Button variant="contained" style={{margin: 1, textTransform: "none"}}>
+                    <Button variant="contained" type="submit" style={{margin: 1, textTransform: "none"}}>
                         Add Animal
                     </Button>
                 </form>
