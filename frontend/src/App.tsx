@@ -23,7 +23,8 @@ function App() {
         <Box sx={{flexGrow: 1}}>
             <Grid container spacing={3} sx={{mt: 0, ml: 0}}>
                 <Header/>
-                <ListContainer animals={animals}/>
+                <ListContainer setAnimals={setAnimals} animals={animals}/>
+
                 <FormularContainer setAnimals={setAnimals}/>
             </Grid>
         </Box>

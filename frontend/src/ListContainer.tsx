@@ -1,23 +1,44 @@
-import {Button, Grid, List, Paper, Typography} from "@mui/material";
+import {Button, Grid, List, Paper, styled, Typography} from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {Animal, Item} from "./Utils.tsx";
+import {Animal} from "./Utils.tsx";
+import axios from "axios";
 
 type Props = {
 
-    animals: Animal[]
+    animals: Animal[],
+    setAnimals: React.Dispatch<React.SetStateAction<Animal[]>>
 }
 
 
-function ListContainer({animals}: Props) {
+const Item = styled(Paper)(({theme}) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    margin: 4
+}));
+
+
+function ListContainer({animals, setAnimals}: Props) {
+
+    function deleteAnimal(id: string) {
+        axios.delete(`/api/animals/${id}`)
+            .then((response) => {
+                setAnimals(animals.filter((currentanimal) => currentanimal.id !== id))
+                console.log(response.data)
+            }).catch(error => console.log(error))
+
+    }
+
     return (
         <Grid item xs={5} sx={{mr: 2}}>
             <Item sx={{height: "100vh", backgroundColor: "#35baf6"}}>
                 <List>
                     {
-                        animals.map((animal) => (
-
+                        animals?.map(animal => (
                             <Paper key={animal.id} sx={{
                                 height: 50,
                                 display: "flex",
@@ -26,7 +47,7 @@ function ListContainer({animals}: Props) {
                                 padding: 2,
                                 margin: 2
                             }}>
-                                <Typography>{animal.name}</Typography>
+                                <Typography> {animal.name}</Typography>
                                 <Button variant="contained"
                                         size="small"
                                         sx={{textTransform: "none", margin: 1}}
@@ -37,15 +58,13 @@ function ListContainer({animals}: Props) {
                                         sx={{textTransform: "none", margin: 1}}
                                         startIcon={<EditIcon/>}
                                 >Edit</Button>
-                                <Button variant="contained"
+                                <Button onClick={() => deleteAnimal(animal.id)} variant="contained"
                                         size="small"
                                         sx={{textTransform: "none", margin: 1}}
                                         startIcon={<DeleteIcon/>}
                                 >Delete</Button>
                             </Paper>
                         ))
-
-
                     }
                 </List>
             </Item>

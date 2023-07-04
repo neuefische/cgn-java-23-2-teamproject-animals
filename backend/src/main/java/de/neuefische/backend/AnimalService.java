@@ -24,4 +24,8 @@ public class AnimalService {
         return animalRepository.getAllAnimals();
     }
 
+    public Animal editAnimal(Animal animal, String id) {
+        return animalRepository.editAnimal(animal, id);
+    }
+
 }

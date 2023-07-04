@@ -40,5 +40,12 @@ public class AnimalRepository {
         return animals;
     }
 
+    public Animal editAnimal(Animal animal, String id) {
+        Animal newAnimal = getAnimalById.apply(id);
+        newAnimal.setName(animal.getName());
+
+        return newAnimal;
+    }
+
 
 }
