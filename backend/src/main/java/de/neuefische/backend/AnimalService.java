@@ -13,19 +13,19 @@ public class AnimalService {
     private final AnimalRepository animalRepository;
 
     public Animal addAnimal(Animal animal) {
-        return animalRepository.addAnimal(animal);
+        return animalRepository.save(animal);
     }
 
     public void deleteAnimal(String id) {
-        animalRepository.deleteAnimal(id);
+        animalRepository.deleteById(id);
     }
 
     public List<Animal> getAllAnimals() {
-        return animalRepository.getAllAnimals();
+        return animalRepository.findAll();
     }
 
-    public Animal editAnimal(Animal animal, String id) {
-        return animalRepository.editAnimal(animal, id);
-    }
+   /* public Animal editAnimal(Animal animal, String id) {
+        return animalRepository.(animal, id);
+    }*/
 
 }

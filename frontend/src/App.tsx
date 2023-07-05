@@ -16,9 +16,6 @@ function App() {
             .catch((error) => console.error(error));
     }, []);
 
-    console.log(animals)
-
-
     return (
         <Box sx={{flexGrow: 1}}>
             <Grid container spacing={3} sx={{mt: 0, ml: 0}}>

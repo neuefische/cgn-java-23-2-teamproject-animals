@@ -6,7 +6,6 @@ import axios from "axios";
 
 type Props = {
     setAnimals: React.Dispatch<React.SetStateAction<Animal[]>>;
-
 }
 
 

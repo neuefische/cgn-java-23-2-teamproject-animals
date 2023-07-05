@@ -14,9 +14,15 @@ function Header() {
     return (
         <Grid item xs={12}>
             <Item sx={{height: 100, backgroundColor: "#35baf6"}}>
-
-                <img src="/frontend/src/assets/Bild.png" alt="Beschreibung des Bildes"/>
-
+                <img src="/images/Bild.png" alt="Animal picture"
+                     loading="lazy"
+                     style={{
+                         borderRadius: 8,
+                         objectFit: "cover",
+                         width: "100%",
+                         height: 100,
+                         objectPosition: "80% 40%",
+                     }}/>
             </Item>
         </Grid>
     );

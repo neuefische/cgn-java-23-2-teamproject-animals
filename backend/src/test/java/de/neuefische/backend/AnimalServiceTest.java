@@ -6,37 +6,47 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 
 public class AnimalServiceTest {
+    AnimalRepository animalRepository = spy(AnimalRepository.class);
+
+    AnimalService animalService = new AnimalService(animalRepository);
+
 
     @Test
     void testAddAnimal() {
-        AnimalRepository animalRepository = spy(AnimalRepository.class);
         Animal expected = new Animal("1", "cat");
-        Animal actual = animalRepository.addAnimal(expected);
+        when(animalRepository.save(expected)).thenReturn(expected);
+        Animal actual = animalService.addAnimal(expected);
         Assertions.assertEquals(expected, actual);
-        verify(animalRepository).addAnimal(expected);
+        verify(animalRepository).save(expected);
     }
 
     @Test
     void testGetAllAnimals() {
-        AnimalRepository animalRepository = spy(AnimalRepository.class);
-        animalRepository.addAnimal(new Animal("1", "cat"));
-        List<Animal> actual = animalRepository.getAllAnimals();
-        List<Animal> expected = Arrays.asList(new Animal("1", "cat"));
+        when(animalRepository.findAll()).thenReturn(Arrays.asList(
+                new Animal("1", "cat"),
+                new Animal("2", "dog")
+        ));
+        List<Animal> actual = animalRepository.findAll();
+        List<Animal> expected = Arrays.asList(
+                new Animal("1", "cat"),
+                new Animal("2", "dog")
+        );
         Assertions.assertEquals(expected, actual);
-        Assertions.assertTrue(animalRepository.getAllAnimals().size() == 1);
+        Assertions.assertTrue(animalRepository.findAll().size() == 2);
     }
 
     @Test
     void testDeleteAnimal() {
-        AnimalRepository animalRepository = spy(AnimalRepository.class);
-        animalRepository.addAnimal(new Animal("1", "cat"));
-        List<Animal> actual = animalRepository.getAllAnimals();
-        animalRepository.deleteAnimal("1");
-        Assertions.assertFalse(animalRepository.getAllAnimals().contains(new Animal("1", "cat")));
+        List<Animal> animals = Arrays.asList(
+                new Animal("1", "cat"),
+                new Animal("2", "dog")
+        );
+        when(animalRepository.saveAll(animals)).thenReturn(animals);
+        animalService.deleteAnimal("2");
+        Assertions.assertTrue(animals.contains(new Animal("1", "cat")));
     }
 }

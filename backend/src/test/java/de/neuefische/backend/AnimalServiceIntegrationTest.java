@@ -1,5 +1,6 @@
 package de.neuefische.backend;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,10 +25,13 @@ class AnimalServiceIntegrationTest {
     @Autowired
     AnimalRepository animalRepository;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
     @Test
     @DirtiesContext
     void test_getAnimals() throws Exception {
-        animalRepository.addAnimal(new Animal("1", "cat"));
+        animalRepository.save(new Animal("1", "cat"));
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/animals"));
         resultActions.andExpect(status().isOk());
@@ -53,7 +57,7 @@ class AnimalServiceIntegrationTest {
     @Test
     @DirtiesContext
     void test_deleteAnimal() throws Exception {
-        animalRepository.addAnimal(new Animal("1", "cat"));
+        animalRepository.save(new Animal("1", "cat"));
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.delete("/api/animals/1"));
         resultActions.andExpect(status().isOk());

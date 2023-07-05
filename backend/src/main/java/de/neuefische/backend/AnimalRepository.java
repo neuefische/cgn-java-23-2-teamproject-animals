@@ -1,15 +1,12 @@
 package de.neuefische.backend;
 
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-
 @Repository
-public class AnimalRepository {
+public interface AnimalRepository extends MongoRepository<Animal, String> {
 
-    private List<Animal> animals;
+    /*private List<Animal> animals;
 
     private Animal result;
 
@@ -45,7 +42,7 @@ public class AnimalRepository {
         newAnimal.setName(animal.getName());
 
         return newAnimal;
-    }
+    }*/
 
 
 }
