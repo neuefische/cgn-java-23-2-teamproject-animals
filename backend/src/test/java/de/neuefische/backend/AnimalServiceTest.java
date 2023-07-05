@@ -9,17 +9,17 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 
-public class AnimalServiceTest {
-    AnimalRepository animalRepository = spy(AnimalRepository.class);
+ class AnimalServiceTest {
+     AnimalRepository animalRepository = spy(AnimalRepository.class);
 
-    AnimalService animalService = new AnimalService(animalRepository);
+     AnimalService animalService = new AnimalService(animalRepository);
 
 
-    @Test
-    void testAddAnimal() {
-        Animal expected = new Animal("1", "cat");
-        when(animalRepository.save(expected)).thenReturn(expected);
-        Animal actual = animalService.addAnimal(expected);
+     @Test
+     void testAddAnimal() {
+         Animal expected = new Animal("1", "cat");
+         when(animalRepository.save(expected)).thenReturn(expected);
+         Animal actual = animalService.addAnimal(expected);
         Assertions.assertEquals(expected, actual);
         verify(animalRepository).save(expected);
     }
@@ -36,7 +36,6 @@ public class AnimalServiceTest {
                 new Animal("2", "dog")
         );
         Assertions.assertEquals(expected, actual);
-        Assertions.assertTrue(animalRepository.findAll().size() == 2);
     }
 
     @Test

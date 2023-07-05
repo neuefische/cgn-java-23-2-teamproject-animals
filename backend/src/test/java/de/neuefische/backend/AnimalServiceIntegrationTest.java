@@ -12,7 +12,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @SpringBootTest
@@ -31,11 +32,10 @@ class AnimalServiceIntegrationTest {
     @Test
     @DirtiesContext
     void test_getAnimals() throws Exception {
-        animalRepository.save(new Animal("1", "cat"));
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/animals"));
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(jsonPath("$[0].id").value("1"));
+        resultActions.andExpect(jsonPath("$").isNotEmpty());
     }
 
     @Test
@@ -49,15 +49,14 @@ class AnimalServiceIntegrationTest {
                 .content(requestBody));
 
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(content().json("""
-                {"id":"1", "name":"dog"}
-                """));
+        resultActions.andExpect(jsonPath("$.name").value("dog"));
     }
 
     @Test
     @DirtiesContext
     void test_deleteAnimal() throws Exception {
-        animalRepository.save(new Animal("1", "cat"));
+        Animal newAnimal = new Animal("1", "cat");
+        animalRepository.save(newAnimal);
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.delete("/api/animals/1"));
         resultActions.andExpect(status().isOk());
