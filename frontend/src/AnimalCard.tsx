@@ -6,7 +6,7 @@ import {Animal} from "./Utils.tsx";
 
 type Props = {
     animal: Animal,
-    deleteAnimal: (id: string) => void
+    deleteAnimal: (id: string| null) => void
 }
 
 

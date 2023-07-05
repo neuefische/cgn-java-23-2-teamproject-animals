@@ -32,10 +32,5 @@ public class AnimalController {
         animalService.deleteAnimal(id);
     }
 
-    /*@PutMapping("/{id}")
-    public Animal editAnimal(@RequestBody Animal animal, @PathVariable String id) {
-        return animalService.editAnimal(animal, id);
-    }*/
-
 
 }

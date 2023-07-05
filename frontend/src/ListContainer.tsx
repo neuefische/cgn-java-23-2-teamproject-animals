@@ -21,7 +21,7 @@ const Item = styled(Paper)(({theme}) => ({
 
 function ListContainer({animals, setAnimals}: Props) {
 
-    function deleteAnimal(id: string) {
+    function deleteAnimal(id:( string | null)) {
         axios.delete(`/api/animals/${id}`)
             .then(() => {
                 setAnimals(animals.filter((currentanimal) => currentanimal.id !== id))

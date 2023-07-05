@@ -26,8 +26,5 @@ public class AnimalService {
         return animalRepository.findAll();
     }
 
-   /* public Animal editAnimal(Animal animal, String id) {
-        return animalRepository.(animal, id);
-    }*/
 
 }
