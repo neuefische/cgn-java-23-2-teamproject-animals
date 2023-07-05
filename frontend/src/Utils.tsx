@@ -1,7 +1,7 @@
 import {Paper, styled} from "@mui/material";
 
 export type Animal = {
-    id: string,
+    id: (null | string),
     name: string
 }
 

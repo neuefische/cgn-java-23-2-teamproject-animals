@@ -26,7 +26,6 @@ function ListContainer({animals, setAnimals}: Props) {
             .then(() => {
                 setAnimals(animals.filter((currentanimal) => currentanimal.id !== id))
             }).catch(error => console.log(error))
-
     }
 
     return (
@@ -34,7 +33,7 @@ function ListContainer({animals, setAnimals}: Props) {
             <Item sx={{height: "100vh", backgroundColor: "#35baf6"}}>
                 <List>
                     {
-                        animals?.map(animal => (
+                        animals?.map((animal) => (
                             <AnimalCard
                                 key={animal.id}
                                 animal={animal}

@@ -22,7 +22,7 @@ function App() {
                 <Header/>
                 <ListContainer setAnimals={setAnimals} animals={animals}/>
 
-                <FormularContainer setAnimals={setAnimals}/>
+                <FormularContainer setAnimals={setAnimals} animals={animals}/>
             </Grid>
         </Box>
     )

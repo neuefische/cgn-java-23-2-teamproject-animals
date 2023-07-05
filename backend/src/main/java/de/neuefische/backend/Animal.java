@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.UUID;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +13,6 @@ import java.util.UUID;
 public class Animal {
 
     @Id
-    private String id = UUID.randomUUID().toString();
+    private String id;
     private String name;
 }
