@@ -6,6 +6,7 @@ import AnimalCard from "./AnimalCard.tsx";
 type Props = {
     animals: Animal[],
     setAnimals: React.Dispatch<React.SetStateAction<Animal[]>>
+
 }
 
 
