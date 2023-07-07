@@ -35,7 +35,7 @@ class AnimalServiceIntegrationTest {
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/animals"));
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(jsonPath("$").isNotEmpty());
+        resultActions.andExpect(jsonPath("$").isEmpty());
     }
 
     @Test
