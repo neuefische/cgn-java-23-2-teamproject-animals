@@ -18,7 +18,6 @@ function FormularContainer({setAnimals, animals}: Props) {
         name: ""
     })
 
-
     function addAnimal(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         setAnimals([...animals, animal])
