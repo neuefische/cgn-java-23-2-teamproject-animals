@@ -13,7 +13,7 @@ const Item = styled(Paper)(({theme}) => ({
 function Header() {
     return (
         <Grid item xs={12}>
-            <Item sx={{height: 100, backgroundColor: "#35baf6"}}>
+            <Item sx={{height: 100, backgroundColor: "#f5f5dc"}}>
                 <img src="/images/Bild.png" alt="Animal picture"
                      loading="lazy"
                      style={{
