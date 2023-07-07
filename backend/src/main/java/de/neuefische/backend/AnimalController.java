@@ -1,6 +1,6 @@
 package de.neuefische.backend;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,14 +8,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/animals")
+@RequiredArgsConstructor
 public class AnimalController {
 
     private final AnimalService animalService;
-
-    @Autowired
-    public AnimalController(AnimalService animalService) {
-        this.animalService = animalService;
-    }
 
     @GetMapping
     public List<Animal> getAllAnimals() {
@@ -23,14 +19,13 @@ public class AnimalController {
     }
 
     @PostMapping
-    public Animal addAnimal(@RequestBody Animal animal) {
-        return this.animalService.addAnimal(animal);
+    public Animal addAnimal(@RequestBody DtoAnimal dtoAnimal) {
+        return animalService.addAnimal(dtoAnimal);
     }
 
     @DeleteMapping("/{id}")
     public void deleteAnimal(@PathVariable String id) {
         animalService.deleteAnimal(id);
     }
-
 
 }

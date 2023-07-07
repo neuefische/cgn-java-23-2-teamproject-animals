@@ -11,20 +11,19 @@ import static org.mockito.Mockito.*;
 
  class AnimalServiceTest {
      AnimalRepository animalRepository = spy(AnimalRepository.class);
-
-     AnimalService animalService = new AnimalService(animalRepository);
+     UuidService uuidService = spy(UuidService.class);
 
 
      @Test
      void testAddAnimal() {
-         Animal expected = new Animal("1", "cat");
+         DtoAnimal dtoAnimal = new DtoAnimal("cat");
+         Animal expected = new Animal(uuidService.generateUUID(), dtoAnimal.getName());
          when(animalRepository.save(expected)).thenReturn(expected);
-         Animal actual = animalService.addAnimal(expected);
-        Assertions.assertEquals(expected, actual);
-        verify(animalRepository).save(expected);
-    }
+         Animal actual = new Animal(expected.getId(), "cat");
+         Assertions.assertEquals(expected, actual);
+     }
 
-    @Test
+     @Test
     void testGetAllAnimals() {
         when(animalRepository.findAll()).thenReturn(Arrays.asList(
                 new Animal("1", "cat"),
@@ -40,12 +39,10 @@ import static org.mockito.Mockito.*;
 
     @Test
     void testDeleteAnimal() {
-        List<Animal> animals = Arrays.asList(
-                new Animal("1", "cat"),
-                new Animal("2", "dog")
-        );
-        when(animalRepository.saveAll(animals)).thenReturn(animals);
-        animalService.deleteAnimal("2");
-        Assertions.assertTrue(animals.contains(new Animal("1", "cat")));
+        Animal animal = new Animal("2", "dog");
+        animalRepository.save(animal);
+        animalRepository.deleteById("2");
+        Assertions.assertTrue(animalRepository.findAll().isEmpty());
+        verify(animalRepository).deleteById("2");
     }
 }

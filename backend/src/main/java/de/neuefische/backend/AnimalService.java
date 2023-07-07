@@ -4,17 +4,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class AnimalService {
 
 
+    private final UuidService uuidService;
+
     private final AnimalRepository animalRepository;
 
-    public Animal addAnimal(Animal animal) {
-        animal.setId(UUID.randomUUID().toString());
+    public Animal addAnimal(DtoAnimal dtoAnimal) {
+        String id = uuidService.generateUUID();
+        Animal animal = new Animal(id, dtoAnimal.getName());
         return animalRepository.save(animal);
     }
 
