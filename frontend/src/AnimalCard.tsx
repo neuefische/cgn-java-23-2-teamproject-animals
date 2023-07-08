@@ -6,11 +6,18 @@ import {Animal} from "./Utils.tsx";
 
 type Props = {
     animal: Animal,
-    deleteAnimal: (id: string| null) => void
+    deleteAnimal: (id: string) => void
+    setAnimalId: React.Dispatch<React.SetStateAction<string>>
 }
 
 
-function AnimalCard({animal, deleteAnimal}: Props) {
+function AnimalCard({animal, deleteAnimal, setAnimalId}: Props) {
+
+    function handleEditClick(id: string) {
+        setAnimalId(id)
+    }
+
+
     return (
         <Card sx={{minWidth: 50, mb: 2}}>
             <CardContent>
@@ -20,11 +27,6 @@ function AnimalCard({animal, deleteAnimal}: Props) {
                 </Typography>
             </CardContent>
             <CardContent sx={{
-                '@media (max-width: 820px)': {
-                    display: "flex",
-                    flexDirection: "column",
-                    width: '80%'
-                },
                 display: "flex", alignItems: "center"
             }}>
                 <CardActions>
@@ -35,7 +37,9 @@ function AnimalCard({animal, deleteAnimal}: Props) {
                 </CardActions>
                 <CardActions>
                     <Button
+                        onClick={() => handleEditClick(animal.id)}
                         variant="contained"
+                        color="success"
                         startIcon={<EditIcon/>}
                         size="small" sx={{textTransform: "none"}}>edit</Button>
                 </CardActions>
@@ -43,6 +47,7 @@ function AnimalCard({animal, deleteAnimal}: Props) {
                     <Button
                         onClick={() => deleteAnimal(animal.id)}
                         variant="contained"
+                        color="secondary"
                         startIcon={<DeleteIcon/>}
                         size="small" sx={{textTransform: "none"}}>delete</Button>
                 </CardActions>

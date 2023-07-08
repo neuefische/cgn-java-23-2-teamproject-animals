@@ -1,5 +1,5 @@
-import {Button, Grid, TextField, Typography} from "@mui/material";
-import {FormEvent, useState} from "react";
+import {Button, Card, CardActions, CardContent, CardMedia, Grid, TextField, Typography} from "@mui/material";
+import React, {FormEvent, useEffect, useRef, useState} from "react";
 import {Animal, Item} from "./Utils.tsx";
 import axios from "axios";
 
@@ -7,47 +7,85 @@ import axios from "axios";
 type Props = {
     setAnimals: React.Dispatch<React.SetStateAction<Animal[]>>,
     animals: Animal[]
+    animalId: string
+    setEditMode: React.Dispatch<React.SetStateAction<boolean>>
+    editMode: boolean
 }
 
 
-function FormularContainer({setAnimals, animals}: Props) {
-
-    const [idCounter, setIdCounter] = useState(1)
-    const [animal, setAnimal] = useState<Animal>({
-        id: idCounter.toString(),
-        name: ""
-    })
+function FormularContainer({setAnimals, animals, animalId, setEditMode, editMode}: Props) {
+    const animalRef = useRef("" as any)
+    const [name, setName] = useState<string>("")
 
     function addAnimal(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        setAnimals([...animals, animal])
-        setAnimal({
-            id: null,
-            name: ""
-        })
-        axios.post("/api/animals", animal)
+        const newAnimal = {
+            name
+        }
+        const animalWithId: Animal = {
+            id: animals.length.toString(),
+            name
+        }
+        axios.post("/api/animals", newAnimal)
+        setAnimals([...animals, animalWithId])
+        setName("")
     }
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAnimal({
-            id: idCounter.toString(),
-            name: event.target.value
-        })
-        setIdCounter(idCounter + 1)
+    function updateAnimal(id: string) {
+        axios.put(`/api/animals/${animalId}`, {name})
+        const toUpdateAnimal = animals.find((animal: Animal) => (animal.id === id))
+        if (toUpdateAnimal) toUpdateAnimal.name = name
+
     }
+
+
+    useEffect(() => {
+        if (animalId !== "") {
+            setEditMode(prev => !prev)
+            animalRef.current.focus()
+        }
+    }, [animalId, setEditMode])
 
     return (
-        <Grid item xs={6} sx={{mr: 2}}>
-            <Item sx={{mh: 100, backgroundColor: "#35baf6"}}>
+        <Grid item xs={6}>
+            <Item variant="outlined" sx={{mh: 100}}>
                 <Typography>Neues Tier hinzufügen</Typography>
                 <form onSubmit={addAnimal} style={{display: "flex", flexDirection: "column"}}>
-                    <TextField label="Animal Name" variant="outlined" value={animal.name}
-                               onChange={handleChange}/>
-                    <Button variant="contained" type="submit" style={{margin: 1, textTransform: "none"}}>
+                    <TextField label="Animal Name" variant="outlined" value={name} inputRef={animalRef as any}
+                               onChange={(e) => setName(e.target.value)}/>
+                    <Button
+                        variant="contained" type="submit"
+                        style={{margin: 4, textTransform: "none"}}
+                    >
                         Add Animal
                     </Button>
                 </form>
+                {editMode && (<Button variant="contained" onClick={() => {
+                    updateAnimal(animalId)
+                    setName("")
+                }}>update</Button>)}
             </Item>
+            <Grid>
+                <Card sx={{margin: 2}}>
+                    <CardMedia
+                        sx={{height: 140}}
+                        title="green iguana"
+                        image="/static/images/cards/contemplative-reptile.jpg"
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            Lizard
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Lizards are a widespread group of squamate reptiles, with over 6,000
+                            species, ranging across all continents except Antarctica
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button variant="contained" size="small">close</Button>
+                    </CardActions>
+                </Card>
+            </Grid>
         </Grid>
     );
 }

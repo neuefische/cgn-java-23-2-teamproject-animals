@@ -1,14 +1,19 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Box, Grid} from "@mui/material";
+import {Box, Grid, useMediaQuery} from "@mui/material";
 import Header from "./Header.tsx";
 import ListContainer from "./ListContainer.tsx";
 import FormularContainer from "./FormularContainer.tsx";
 import {Animal} from "./Utils.tsx";
+import CategoryChips from "./CategoryChips.tsx";
+import Footer from "./Footer.tsx";
 
 
 function App() {
     const [animals, setAnimals] = useState<Animal[]>([]);
+    const [editMode, setEditMode] = useState(false);
+    const [animalId, setAnimalId] = useState("");
+
 
     useEffect(() => {
         axios.get('/api/animals')
@@ -16,14 +21,37 @@ function App() {
             .catch((error) => console.error(error));
     }, []);
 
-    return (
-        <Box sx={{flexGrow: 1}}>
-            <Grid container spacing={3} sx={{mt: 0, ml: 0}}>
-                <Header/>
-                <ListContainer setAnimals={setAnimals} animals={animals}/>
+    const matches = useMediaQuery('(min-width:820px)');
 
-                <FormularContainer setAnimals={setAnimals} animals={animals}/>
-            </Grid>
+    return (
+        <Box sx={{flexGrow: 1, margin: 0}} onClick={() => setEditMode(false)}>
+            {matches ? (
+                    <Grid container spacing={{xs: 2, md: 3}}>
+                        <Header/>
+                        <CategoryChips/>
+                        <ListContainer setAnimals={setAnimals} animals={animals} setAnimalId={setAnimalId}/>
+                        <FormularContainer
+                            setAnimals={setAnimals} animals={animals}
+                            animalId={animalId} setEditMode={setEditMode}
+                            editMode={editMode}
+                        />
+                        <Footer/>
+                    </Grid>)
+                :
+                (
+                    <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 12}}
+                          sx={{display: "flex", flexDirection: "column"}}>
+                        <Header/>
+                        <CategoryChips/>
+                        <FormularContainer
+                            setAnimals={setAnimals} animals={animals}
+                            animalId={animalId}
+                            setEditMode={setEditMode}
+                            editMode={editMode}
+                        />
+                        <ListContainer setAnimals={setAnimals} animals={animals} setAnimalId={setAnimalId}/>
+                        <Footer/>
+                    </Grid>)}
         </Box>
     )
 }

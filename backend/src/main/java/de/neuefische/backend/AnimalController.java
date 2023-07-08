@@ -28,4 +28,9 @@ public class AnimalController {
         animalService.deleteAnimal(id);
     }
 
+    @PutMapping("{id}")
+    public void editAnimal(@RequestBody DtoAnimal dtoAnimal, @PathVariable String id) {
+        animalService.editAnimal(dtoAnimal, id);
+    }
+
 }

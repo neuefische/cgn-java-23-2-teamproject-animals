@@ -1,37 +1,28 @@
-import {Grid, List, Paper, styled} from "@mui/material";
-import {Animal} from "./Utils.tsx";
+import {Grid, List} from "@mui/material";
+import {Animal, Item} from "./Utils.tsx";
 import axios from "axios";
 import AnimalCard from "./AnimalCard.tsx";
+
 
 type Props = {
     animals: Animal[],
     setAnimals: React.Dispatch<React.SetStateAction<Animal[]>>
-
+    setAnimalId: React.Dispatch<React.SetStateAction<string>>
 }
 
 
-const Item = styled(Paper)(({theme}) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    margin: 4
-}));
+function ListContainer({animals, setAnimals, setAnimalId}: Props) {
 
-
-function ListContainer({animals, setAnimals}: Props) {
-
-    function deleteAnimal(id:( string | null)) {
+    function deleteAnimal(id: string) {
         axios.delete(`/api/animals/${id}`)
             .then(() => {
-                setAnimals(animals.filter((currentanimal) => currentanimal.id !== id))
+                setAnimals(animals.filter((currentAnimal) => currentAnimal.id !== id))
             }).catch(error => console.log(error))
     }
 
     return (
-        <Grid item xs={5} sx={{mr: 2}}>
-            <Item sx={{height: "100vh", backgroundColor: "#35baf6"}}>
+        <Grid item xs={5}>
+            <Item variant="outlined" sx={{minHeight: 300, margin: 4}}>
                 <List>
                     {
                         animals?.map((animal) => (
@@ -39,6 +30,7 @@ function ListContainer({animals, setAnimals}: Props) {
                                 key={animal.id}
                                 animal={animal}
                                 deleteAnimal={deleteAnimal}
+                                setAnimalId={setAnimalId}
                             />
                         ))
                     }
