@@ -47,7 +47,7 @@ function FormularContainer({setAnimals, animals, animalId, setEditMode, editMode
     }, [animalId, setEditMode])
 
     return (
-        <Grid item xs={6}>
+        <Grid item xs={6} sx={{}}>
             <Item variant="outlined" sx={{mh: 100}}>
                 <Typography>Neues Tier hinzufügen</Typography>
                 <form onSubmit={addAnimal} style={{display: "flex", flexDirection: "column"}}>

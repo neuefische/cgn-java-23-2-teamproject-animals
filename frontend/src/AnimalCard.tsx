@@ -21,13 +21,12 @@ function AnimalCard({animal, deleteAnimal, setAnimalId}: Props) {
     return (
         <Card sx={{minWidth: 50, mb: 2}}>
             <CardContent>
-
                 <Typography sx={{fontSize: 14}} color="text.secondary">
                     Name: {animal.name}
                 </Typography>
             </CardContent>
             <CardContent sx={{
-                display: "flex", alignItems: "center"
+                display: "flex", alignItems: "center", p: 0
             }}>
                 <CardActions>
                     <Button

@@ -29,8 +29,8 @@ public class AnimalController {
     }
 
     @PutMapping("{id}")
-    public void editAnimal(@RequestBody DtoAnimal dtoAnimal, @PathVariable String id) {
-        animalService.editAnimal(dtoAnimal, id);
+    public Animal editAnimal(@RequestBody DtoAnimal dtoAnimal, @PathVariable String id) {
+        return animalService.editAnimal(dtoAnimal, id);
     }
 
 }

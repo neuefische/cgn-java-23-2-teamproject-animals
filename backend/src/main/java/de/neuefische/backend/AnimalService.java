@@ -28,9 +28,10 @@ public class AnimalService {
         return animalRepository.findAll();
     }
 
-    public void editAnimal(DtoAnimal dtoAnimal, String id) {
+    public Animal editAnimal(DtoAnimal dtoAnimal, String id) {
         Animal isEditAnimal = animalRepository.findById(id).orElseThrow(() -> new RuntimeException("could not find animal"));
         isEditAnimal.setName(dtoAnimal.getName());
-        animalRepository.save(isEditAnimal);
+        return animalRepository.save(isEditAnimal);
+
     }
 }

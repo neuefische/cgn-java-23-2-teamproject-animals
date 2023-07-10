@@ -41,7 +41,6 @@ import static org.mockito.Mockito.*;
     void testDeleteAnimal() {
         Animal animal = new Animal("2", "dog");
         animalRepository.save(animal);
-        animalRepository.deleteById("2");
         Assertions.assertTrue(animalRepository.findAll().isEmpty());
         verify(animalRepository).deleteById("2");
     }

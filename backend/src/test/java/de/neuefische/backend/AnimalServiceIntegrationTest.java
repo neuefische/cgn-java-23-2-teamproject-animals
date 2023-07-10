@@ -10,6 +10,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -61,5 +62,21 @@ class AnimalServiceIntegrationTest {
                 MockMvcRequestBuilders.delete("/api/animals/1"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(result -> System.out.println(result.getResponse().getStatus()));
+    }
+
+    @Test
+    @DirtiesContext
+    void test_editAnimal() throws Exception {
+        Animal newAnimal = new Animal("1", "cat");
+        animalRepository.save(newAnimal);
+        mockMvc.perform(
+                        MockMvcRequestBuilders.put("/api/animals/1")
+                                .content(objectMapper.writeValueAsBytes(new Animal("1", "dog")))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {"id": "1", "name": "dog"}
+                        """));
+
     }
 }
