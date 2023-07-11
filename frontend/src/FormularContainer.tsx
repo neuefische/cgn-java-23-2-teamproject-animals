@@ -51,6 +51,7 @@ function FormularContainer({setAnimals, animals, animalId, setEditMode, editMode
             <Item variant="outlined" sx={{mh: 100}}>
                 <Typography>Neues Tier hinzufügen</Typography>
                 <form onSubmit={addAnimal} style={{display: "flex", flexDirection: "column"}}>
+
                     <TextField label="Animal Name" variant="outlined" value={name} inputRef={animalRef as any}
                                onChange={(e) => setName(e.target.value)}/>
                     <Button
