@@ -20,6 +20,7 @@ public class AnimalController {
 
     @PostMapping
     public Animal addAnimal(@RequestBody DtoAnimal dtoAnimal) {
+
         return animalService.addAnimal(dtoAnimal);
     }
 
