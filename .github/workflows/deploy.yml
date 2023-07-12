@@ -69,15 +69,15 @@ jobs:
         uses: docker/login-action@v1
         with:
           #Set dockerhub username
-          username: chadwick007
-          password: ${{ secrets.DOCKERHUB_PASSWORD}}
+          username: AlexanderGuenzel
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
 
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           push: true
           #Set dockerhub project (replace "bartfastiel/java-capstone-project.de-example-app")
-          tags: chadwick007/java-animalapp.de-alpha-app:latest
+          tags: AlexanderGuenzel/java-animalapp.de-alpha-app:latest
           context: .
 
   deploy:
@@ -97,7 +97,7 @@ jobs:
           script: |
             docker stop alpha
             docker rm alpha
-            docker run --pull=always -e MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} --name alpha --network animalapp --ip 10.0.1.1 --restart always --detach chadwick007/java-animalapp.de-alpha-app:latest
+            docker run --pull=always -e MONGO_DB_URI=${{secrets.MONGO_DB_URI }} --name alpha --network animalapp --ip 10.0.1.1 --restart always --detach AlexanderGuenzel/java-animalapp.de-alpha-app:latest
             sleep 15s
             docker logs alpha
 
