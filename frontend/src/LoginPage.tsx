@@ -7,7 +7,7 @@ function LoginPage() {
 
     function onLogin(event:FormEvent){
         event.preventDefault()
-        axios.post("/api/animals/Login",null,{auth:{username,password}})
+        axios.post("/api/users/Login",null,{auth:{username,password}})
             .then(console.log)
     }
 

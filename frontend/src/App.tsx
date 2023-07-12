@@ -29,7 +29,7 @@ function App() {
             {matches ? (
                     <Grid container spacing={{xs: 2, md: 3}}>
                         <Header/>
-                        <LoginPage/>
+
                         <CategoryChips/>
                         <ListContainer setAnimals={setAnimals} animals={animals} setAnimalId={setAnimalId}/>
                         <FormularContainer
@@ -37,7 +37,7 @@ function App() {
                             animalId={animalId} setEditMode={setEditMode}
                             editMode={editMode}
                         />
-
+                          <LoginPage/>     
                         <Footer/>
                     </Grid>)
                 :
