@@ -90,14 +90,14 @@ jobs:
           host: animalapp.de
           #Set App Name (replace "alpha" with "alpha"-"tango")
           username: alpha
-          password: ${{ secrets.SSH_PASSWORD }}
+          password: ${{secrets.SSH_PASSWORD }}
           #Set App Name (replace "example" with "alpha"-"tango")
           #Set dockerhub project (replace "bartfastiel/java-capstone-project.de-example-app")
           #Set IP (replace "10.0.1.99" with "10.0.1.1"-"10.0.1.20")
           script: |
             docker stop alpha
             docker rm alpha
-            docker run --pull=always -e MONGO_DB_URI=${{secrets.MONGO_DB_URI }} --name alpha --network animalapp --ip 10.0.1.1 --restart always --detach alexanderguenzel/java-animalapp.de-alpha-app:latest
+            docker run --pull=always -e MONGO_DB_URI=${{secrets.MONGO_DB_URI }} --name alpha --network app --ip 10.0.1.1 --restart always --detach alexanderguenzel/java-animalapp.de-alpha-app:latest
             sleep 15s
             docker logs alpha
 
