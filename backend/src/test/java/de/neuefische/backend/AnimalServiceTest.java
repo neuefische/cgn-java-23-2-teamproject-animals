@@ -5,38 +5,52 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 
-public class AnimalServiceTest {
+ class AnimalServiceTest {
+     AnimalRepository animalRepository = spy(AnimalRepository.class);
+     UuidService uuidService = spy(UuidService.class);
+     AnimalService animalService = new AnimalService(uuidService, animalRepository);
 
-    @Test
-    void testAddAnimal() {
-        AnimalRepository animalRepository = spy(AnimalRepository.class);
-        Animal expected = new Animal("1", "cat");
-        Animal actual = animalRepository.addAnimal(expected);
-        Assertions.assertEquals(expected, actual);
-        verify(animalRepository).addAnimal(expected);
-    }
+     @Test
+     void test_postAnimal() {
+         DtoAnimal dtoAnimal = new DtoAnimal("cat");
+         Animal expected = new Animal("123", dtoAnimal.getName());
+         when(uuidService.generateUUID()).thenReturn("123");
+         when(animalRepository.save(expected)).thenReturn(expected);
+         Animal actual = animalService.addAnimal(dtoAnimal);
+         Assertions.assertEquals(expected, actual);
+     }
 
-    @Test
-    void testGetAllAnimals() {
-        AnimalRepository animalRepository = spy(AnimalRepository.class);
-        animalRepository.addAnimal(new Animal("1", "cat"));
-        List<Animal> actual = animalRepository.getAllAnimals();
-        List<Animal> expected = Arrays.asList(new Animal("1", "cat"));
-        Assertions.assertEquals(expected, actual);
-        Assertions.assertTrue(animalRepository.getAllAnimals().size() == 1);
-    }
+     @Test
+     void test_getAllAnimals() {
+         when(animalRepository.findAll()).thenReturn(Arrays.asList(
+                 new Animal("1", "cat"),
+                 new Animal("2", "dog")
+         ));
+         List<Animal> actual = animalService.getAllAnimals();
+         List<Animal> expected = Arrays.asList(
+                 new Animal("1", "cat"),
+                 new Animal("2", "dog")
+         );
+         Assertions.assertEquals(expected, actual);
+     }
 
-    @Test
-    void testDeleteAnimal() {
-        AnimalRepository animalRepository = spy(AnimalRepository.class);
-        animalRepository.addAnimal(new Animal("1", "cat"));
-        List<Animal> actual = animalRepository.getAllAnimals();
-        animalRepository.deleteAnimal("1");
-        Assertions.assertFalse(animalRepository.getAllAnimals().contains(new Animal("1", "cat")));
-    }
-}
+     @Test
+     void test_deleteAnimal() {
+         animalService.deleteAnimal("2"); //return: void -> darum kein when benötigt.
+         verify(animalRepository).deleteById("2");
+     }
+
+     @Test
+     void test_updateAnimal() {
+         when(animalRepository.findById("123")).thenReturn(Optional.of(new Animal("123", "Dog")));
+         DtoAnimal dtoAnimal = new DtoAnimal("Cat");
+         Animal actual = animalService.editAnimal(dtoAnimal, "123");
+         Animal expected = new Animal("123", "Dog");
+         Assertions.assertNotEquals(expected, actual);
+     }
+ }
