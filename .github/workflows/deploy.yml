@@ -50,7 +50,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: animalapp.jar
+          name: app.jar
           #Set your jar name
           path: backend/target/animalapp.jar
 
@@ -62,7 +62,7 @@ jobs:
 
       - uses: actions/download-artifact@v2
         with:
-          name: animalapp.jar
+          name: app.jar
           path: backend/target
 
       - name: Login to DockerHub
@@ -77,7 +77,7 @@ jobs:
         with:
           push: true
           #Set dockerhub project (replace "bartfastiel/java-capstone-project.de-example-app")
-          tags: alexanderguenzel/java-animalapp.de-alpha-app:latest
+          tags: alexanderguenzel/java-capstone.de-alpha-app:latest
           context: .
 
   deploy:
