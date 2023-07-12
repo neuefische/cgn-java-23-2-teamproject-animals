@@ -50,9 +50,9 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: app.jar
+          name: animalapp.jar
           #Set your jar name
-          path: backend/target/app.jar
+          path: backend/target/animalapp.jar
 
   push-to-docker-hub:
     runs-on: ubuntu-latest
