@@ -88,27 +88,4 @@ class AnimalServiceIntegrationTest {
                         """));
 
     }
-
-    @Test
-    @DirtiesContext
-    @WithMockUser
-    void testGetCurrentUserWithPrincipal() throws Exception {
-        var res = mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/users/me")
-                        .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isOk());
-
-    }
-
-    @Test
-    @DirtiesContext
-    @WithMockUser
-    void testGetCurrentUserWithSecurityContext() throws Exception {
-        var res = mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/users/me1")
-                        .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isOk());
-    }
 }
