@@ -7,6 +7,7 @@ import FormularContainer from "./FormularContainer.tsx";
 import {Animal} from "./Utils.tsx";
 import CategoryChips from "./CategoryChips.tsx";
 import Footer from "./Footer.tsx";
+import LoginPage from "./LoginPage.tsx";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             {matches ? (
                     <Grid container spacing={{xs: 2, md: 3}}>
                         <Header/>
+
                         <CategoryChips/>
                         <ListContainer setAnimals={setAnimals} animals={animals} setAnimalId={setAnimalId}/>
                         <FormularContainer
@@ -35,6 +37,7 @@ function App() {
                             animalId={animalId} setEditMode={setEditMode}
                             editMode={editMode}
                         />
+                          <LoginPage/>     
                         <Footer/>
                     </Grid>)
                 :
@@ -50,9 +53,13 @@ function App() {
                             editMode={editMode}
                         />
                         <ListContainer setAnimals={setAnimals} animals={animals} setAnimalId={setAnimalId}/>
+
                         <Footer/>
                     </Grid>)}
+
         </Box>
+
+
     )
 }
 
