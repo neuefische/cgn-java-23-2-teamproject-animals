@@ -42,6 +42,7 @@ class AnimalServiceIntegrationTest {
                 .andExpect(MockMvcResultMatchers.content().json("""
                         []
                         """));
+
     }
 
     @Test
