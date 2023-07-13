@@ -97,7 +97,7 @@ jobs:
           script: |
             docker stop alpha
             docker rm alpha
-            docker run --pull=always -e MONGO_DB_URI=${{secrets.MONGO_DB_URI }} --name alpha --network capstones --ip 10.0.1.1 --restart always --detach alexanderguenzel/java-capstone.de-alpha-app:latest
+            docker run --pull=always -e MONGO_DB_URI="${{secrets.MONGO_DB_URI }}" --name alpha --network capstones --ip 10.0.1.1 --restart always --detach alexanderguenzel/java-capstone.de-alpha-app:latest
             sleep 15s
             docker logs alpha
 
