@@ -25,7 +25,7 @@ public class AnimalUserController {
     public String getUserInfo2(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
-    @PostMapping("/Login")
+    @PostMapping("/login")
     public String login(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
