@@ -16,20 +16,28 @@ type Props = {
 function FormularContainer({setAnimals, animals, animalId, setEditMode, editMode}: Props) {
     const animalRef = useRef("" as any)
     const [name, setName] = useState<string>("")
+    const [errorText, setErrorText] = useState<string>("")
 
     function addAnimal(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-        const newAnimal = {
-            name
+        event.preventDefault();
+
+        if (name.length < 3) {
+            setErrorText("Der Name muss mindestens 3 Zeichen enthalten");
+        } else {
+            const newAnimal = {
+                name
+            };
+            const animalWithId: Animal = {
+                id: animals.length.toString(),
+                name
+            };
+            axios.post("/api/animals", newAnimal);
+            setAnimals([...animals, animalWithId]);
+            setName("");
+            setErrorText("");
         }
-        const animalWithId: Animal = {
-            id: animals.length.toString(),
-            name
-        }
-        axios.post("/api/animals", newAnimal)
-        setAnimals([...animals, animalWithId])
-        setName("")
     }
+
 
     function updateAnimal(id: string) {
         axios.put(`/api/animals/${animalId}`, {name})
@@ -47,18 +55,20 @@ function FormularContainer({setAnimals, animals, animalId, setEditMode, editMode
     }, [animalId, setEditMode])
 
     return (
-        <Grid item xs={6} sx={{}}>
+        <Grid item xs={6}>
             <Item variant="outlined" sx={{mh: 100}}>
                 <Typography>Neues Tier hinzufügen</Typography>
                 <form onSubmit={addAnimal} style={{display: "flex", flexDirection: "column"}}>
-
-                    <TextField label="Animal Name" variant="outlined" value={name} inputRef={animalRef as any}
+                    <TextField error
+                               label="Animal"
+                               helperText={errorText}
+                               value={name} inputRef={animalRef as any}
                                onChange={(e) => setName(e.target.value)}/>
                     <Button
                         variant="contained" type="submit"
                         style={{margin: 4, textTransform: "none"}}
                     >
-                        Add Animal
+                        Add
                     </Button>
                 </form>
                 {editMode && (<Button variant="contained" onClick={() => {
