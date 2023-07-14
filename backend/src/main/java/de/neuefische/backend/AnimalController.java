@@ -1,5 +1,6 @@
 package de.neuefische.backend;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class AnimalController {
     }
 
     @PostMapping
-    public Animal addAnimal(@RequestBody DtoAnimal dtoAnimal) {
+    public Animal addAnimal(@Valid @RequestBody DtoAnimal dtoAnimal) {
 
         return animalService.addAnimal(dtoAnimal);
     }
