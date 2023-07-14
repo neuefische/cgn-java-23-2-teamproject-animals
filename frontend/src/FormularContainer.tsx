@@ -34,16 +34,20 @@ function FormularContainer({setAnimals, animals, animalId, setEditMode, editMode
             axios.post("/api/animals", newAnimal);
             setAnimals([...animals, animalWithId]);
             setName("");
-            setErrorText("");
+            setErrorText("Tier hinzugefügt!");
         }
     }
 
 
     function updateAnimal(id: string) {
-        axios.put(`/api/animals/${animalId}`, {name})
-        const toUpdateAnimal = animals.find((animal: Animal) => (animal.id === id))
-        if (toUpdateAnimal) toUpdateAnimal.name = name
-
+        if (name.length < 3) {
+            setErrorText("Edit: Der Name muss mindestens 3 Zeichen enthalten");
+        } else {
+            axios.put(`/api/animals/${animalId}`, {name})
+            const toUpdateAnimal = animals.find((animal: Animal) => (animal.id === id))
+            setErrorText("Edit: Name erfolgreich geändert")
+            if (toUpdateAnimal) toUpdateAnimal.name = name
+        }
     }
 
 
@@ -59,11 +63,11 @@ function FormularContainer({setAnimals, animals, animalId, setEditMode, editMode
             <Item variant="outlined" sx={{mh: 100}}>
                 <Typography>Neues Tier hinzufügen</Typography>
                 <form onSubmit={addAnimal} style={{display: "flex", flexDirection: "column"}}>
-                    <TextField error
-                               label="Animal"
-                               helperText={errorText}
-                               value={name} inputRef={animalRef as any}
-                               onChange={(e) => setName(e.target.value)}/>
+                    <TextField //error
+                        label="Animal"
+                        helperText={errorText}
+                        value={name} inputRef={animalRef as any}
+                        onChange={(e) => setName(e.target.value)}/>
                     <Button
                         variant="contained" type="submit"
                         style={{margin: 4, textTransform: "none"}}
