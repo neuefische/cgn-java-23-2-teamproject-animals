@@ -34,4 +34,7 @@ public class AnimalService {
         return animalRepository.save(isEditAnimal);
 
     }
+      public Animal getAnimalById(String id) {
+        return animalRepository.findById(id).orElseThrow(() -> new RuntimeException("could not find Animal"));
+    }
 }

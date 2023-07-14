@@ -53,4 +53,11 @@ import static org.mockito.Mockito.*;
          Animal expected = new Animal("123", "Dog");
          Assertions.assertNotEquals(expected, actual);
      }
+
+     @Test
+     void test_getAnimalById(){
+         when(animalRepository.findById("1")).thenReturn(Optional.of(new Animal("1","maus")));
+         Animal actual = animalService.getAnimalById("1");
+         Assertions.assertEquals(new Animal("1","maus"),actual);
+     }
  }

@@ -33,5 +33,9 @@ public class AnimalController {
     public Animal editAnimal(@RequestBody DtoAnimal dtoAnimal, @PathVariable String id) {
         return animalService.editAnimal(dtoAnimal, id);
     }
+    @GetMapping("/{id}")
+    public  Animal getAnimalById(@PathVariable String id) {
+       return animalService.getAnimalById(id);
+    }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -67,6 +68,18 @@ class AnimalServiceIntegrationTest {
         animalRepository.save(newAnimal);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/animals/1")
                         .with(csrf()))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser
+    void test_getAnimalById()throws Exception{
+        Animal animal = new Animal("1","kuh");
+        animalRepository.save(animal);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/animals/1")
+                .with(csrf()))
                 .andExpect(status().isOk());
 
     }
