@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +14,7 @@ public class Animal {
     @Id
     private String id;
     private String name;
-    private List<String> foods;
+    private String favoriteFood;
     private Type type;
     private String dateOfBirth;
     private String imageUrl;

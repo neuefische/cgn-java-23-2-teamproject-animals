@@ -38,7 +38,7 @@ public class AnimalService {
         animal.setImageUrl(getImageURL(file));
         animal.setId(id);
         animal.setName(dtoAnimal.getName());
-        animal.setFoods(dtoAnimal.getFoods());
+        animal.setFavoriteFood(dtoAnimal.getFavoriteFood());
         animal.setType(Type.OTHER);
         animal.setDateOfBirth(dtoAnimal.getDateOfBirth());
         animalRepository.save(animal);
