@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +36,6 @@ public class AnimalService {
 
     }
       public Animal getAnimalById(String id) {
-        return animalRepository.findById(id).orElseThrow(() -> new RuntimeException("could not find Animal"));
+        return animalRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Animal nicht gefunden"));
     }
 }
