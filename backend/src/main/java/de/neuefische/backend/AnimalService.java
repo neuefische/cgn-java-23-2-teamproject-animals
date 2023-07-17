@@ -41,7 +41,6 @@ public class AnimalService {
         animal.setFoods(dtoAnimal.getFoods());
         animal.setType(Type.OTHER);
         animal.setDateOfBirth(dtoAnimal.getDateOfBirth());
-        animal.setAge(animal.calcAge(dtoAnimal.getDateOfBirth()));
         animalRepository.save(animal);
         return animal;
     }
