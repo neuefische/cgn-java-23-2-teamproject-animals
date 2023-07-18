@@ -1,5 +1,4 @@
 package de.neuefische.backend;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,17 +9,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AnimalService {
     private final UuidService uuidService;
-    private final FileUploasdService fileUploasdService;
+    private final FileUploadService fileUploadService;
     private final AnimalRepository animalRepository;
-
-
-
-
 
     public Animal addAnimal(MultipartFile file, DtoAnimal dtoAnimal) throws Exception {
         String id = uuidService.generateUUID();
         Animal animal = new Animal();
-        animal.setImageUrl(fileUploasdService.getImageURL(file));
+        animal.setImageUrl(fileUploadService.getImageURL(file));
         animal.setId(id);
         animal.setName(dtoAnimal.getName());
         animal.setFavoriteFood(dtoAnimal.getFavoriteFood());

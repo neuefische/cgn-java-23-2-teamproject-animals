@@ -10,7 +10,8 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class FileUploasdService {
+public class FileUploadService {
+
     private final Cloudinary cloudinary;
 
     public String getImageURL(MultipartFile multipartFile) {
