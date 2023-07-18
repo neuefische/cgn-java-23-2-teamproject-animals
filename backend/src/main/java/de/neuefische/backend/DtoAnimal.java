@@ -12,4 +12,5 @@ public class DtoAnimal {
     private String name;
     private String favoriteFood;
     private String dateOfBirth;
+    private Type type;
 }

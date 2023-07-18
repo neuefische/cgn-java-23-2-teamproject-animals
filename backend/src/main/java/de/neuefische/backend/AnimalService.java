@@ -39,7 +39,7 @@ public class AnimalService {
         animal.setId(id);
         animal.setName(dtoAnimal.getName());
         animal.setFavoriteFood(dtoAnimal.getFavoriteFood());
-        animal.setType(Type.OTHER);
+        animal.setType(dtoAnimal.getType());
         animal.setDateOfBirth(dtoAnimal.getDateOfBirth());
         animalRepository.save(animal);
         return animal;
@@ -56,6 +56,9 @@ public class AnimalService {
     public Animal editAnimal(DtoAnimal dtoAnimal, String id) throws Exception {
         Animal isEditAnimal = animalRepository.findById(id).orElseThrow(() -> new RuntimeException("could not find animal"));
         isEditAnimal.setName(dtoAnimal.getName());
+        isEditAnimal.setFavoriteFood(dtoAnimal.getFavoriteFood());
+        isEditAnimal.setDateOfBirth(dtoAnimal.getDateOfBirth());
+        isEditAnimal.setType(dtoAnimal.getType());
         return animalRepository.save(isEditAnimal);
     }
 }
