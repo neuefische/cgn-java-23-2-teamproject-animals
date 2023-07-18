@@ -11,8 +11,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Document("animals")
 public class Animal {
-
     @Id
     private String id;
     private String name;
+    private String favoriteFood;
+    private Type type;
+    private String dateOfBirth;
+    private String imageUrl;
 }
