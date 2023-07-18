@@ -13,7 +13,8 @@ import static org.mockito.Mockito.*;
  class AnimalServiceTest {
      AnimalRepository animalRepository = spy(AnimalRepository.class);
      UuidService uuidService = spy(UuidService.class);
-     AnimalService animalService = new AnimalService(uuidService, animalRepository);
+     FileUploasdService fileUploasdService = spy(FileUploasdService.class);
+     AnimalService animalService = new AnimalService(uuidService, fileUploasdService, animalRepository);
 
      @Test
      void test_postAnimal() {

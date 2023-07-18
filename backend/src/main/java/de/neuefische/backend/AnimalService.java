@@ -1,39 +1,26 @@
 package de.neuefische.backend;
 
-import com.cloudinary.Cloudinary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class AnimalService {
     private final UuidService uuidService;
-    private final Cloudinary cloudinary;
+    private final FileUploasdService fileUploasdService;
     private final AnimalRepository animalRepository;
 
 
-    public String getImageURL(MultipartFile multipartFile) {
-        try {
-            Map<String, String> params = new HashMap<>();
-            params.put("folder", "images");
-            Map uploadResult = cloudinary.uploader().upload(multipartFile.getBytes(), params);
-            String imageURL = uploadResult.get("url").toString();
-            return imageURL;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-    }
+
 
 
     public Animal addAnimal(MultipartFile file, DtoAnimal dtoAnimal) throws Exception {
         String id = uuidService.generateUUID();
         Animal animal = new Animal();
-        animal.setImageUrl(getImageURL(file));
+        animal.setImageUrl(fileUploasdService.getImageURL(file));
         animal.setId(id);
         animal.setName(dtoAnimal.getName());
         animal.setFavoriteFood(dtoAnimal.getFavoriteFood());
