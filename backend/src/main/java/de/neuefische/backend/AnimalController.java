@@ -3,7 +3,6 @@ package de.neuefische.backend;
 import de.neuefische.backend.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,18 +36,22 @@ public class AnimalController {
     public Animal editAnimal(@RequestBody DtoAnimal dtoAnimal, @PathVariable String id) {
         return animalService.editAnimal(dtoAnimal, id);
     }
+
     @GetMapping("/{id}")
-    public  Animal getAnimalById(@PathVariable String id) {
-       return animalService.getAnimalById(id);
+    public Animal getAnimalById(@PathVariable String id) {
+        return animalService.getAnimalById(id);
     }
+
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorMessage handleException(NoSuchElementException exception){
+    public ErrorMessage handleException(NoSuchElementException exception) {
         return new ErrorMessage(exception.getMessage());
     }
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorMessage handleRuntimeExceptions(MethodArgumentNotValidException exception){
-        return new ErrorMessage(exception.getBody().getDetail());
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage handleRuntimeExceptions(Exception exception) {
+        return new ErrorMessage(exception.getMessage());
     }
+
 }

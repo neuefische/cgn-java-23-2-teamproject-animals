@@ -36,6 +36,6 @@ public class AnimalService {
 
     }
       public Animal getAnimalById(String id) {
-        return animalRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Animal nicht gefunden"));
+        return animalRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Animal not found!"));
     }
 }
