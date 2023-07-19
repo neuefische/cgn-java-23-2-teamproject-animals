@@ -16,25 +16,30 @@ type Props = {
 function FormularContainer({setAnimals, animals, animalId, setEditMode, editMode}: Props) {
     const animalRef = useRef("" as any)
     const [name, setName] = useState<string>("")
+    const [type, setType] = useState<string>("")
 
     function addAnimal(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         const newAnimal = {
-            name
+            name, type
         }
         const animalWithId: Animal = {
             id: animals.length.toString(),
-            name
+            name, type
         }
         axios.post("/api/animals", newAnimal)
         setAnimals([...animals, animalWithId])
         setName("")
+        setType("")
     }
 
     function updateAnimal(id: string) {
         axios.put(`/api/animals/${animalId}`, {name})
         const toUpdateAnimal = animals.find((animal: Animal) => (animal.id === id))
-        if (toUpdateAnimal) toUpdateAnimal.name = name
+        if (toUpdateAnimal) {
+            toUpdateAnimal.name = name;
+            toUpdateAnimal.type = type
+        }
 
     }
 
@@ -54,16 +59,14 @@ function FormularContainer({setAnimals, animals, animalId, setEditMode, editMode
 
                     <TextField label="Animal Name" variant="outlined" value={name} inputRef={animalRef as any}
                                onChange={(e) => setName(e.target.value)}/>
-                    <Button
-                        variant="contained" type="submit"
-                        style={{margin: 4, textTransform: "none"}}
-                    >
-                        Add Animal
-                    </Button>
+                    <TextField label="Animal Type" variant="outlined" value={type} inputRef={animalRef as any}
+                               onChange={(e) => setType(e.target.value)}/>
+                    <Button variant="contained" type="submit" style={{margin: 4, textTransform: "none"}}>Add</Button>
                 </form>
                 {editMode && (<Button variant="contained" onClick={() => {
                     updateAnimal(animalId)
                     setName("")
+                    setType("")
                 }}>update</Button>)}
             </Item>
             <Grid>

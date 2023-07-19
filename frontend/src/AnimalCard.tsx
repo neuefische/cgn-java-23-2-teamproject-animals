@@ -21,8 +21,9 @@ function AnimalCard({animal, deleteAnimal, setAnimalId}: Props) {
     return (
         <Card sx={{minWidth: 50, mb: 2}}>
             <CardContent>
-                <Typography sx={{fontSize: 14}} color="text.secondary">
+                <Typography sx={{fontSize: 14}} color="text.secondary" align={"left"}>
                     Name: {animal.name}
+                    Type: {animal.type}
                 </Typography>
             </CardContent>
             <CardContent sx={{

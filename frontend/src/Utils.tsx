@@ -2,7 +2,8 @@ import {Paper, styled} from "@mui/material";
 
 export type Animal = {
     id: string,
-    name: string
+    name: string,
+    type: string
 }
 
 export const Item = styled(Paper)(({theme}) => ({
