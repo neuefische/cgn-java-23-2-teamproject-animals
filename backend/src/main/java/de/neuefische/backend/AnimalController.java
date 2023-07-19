@@ -1,5 +1,6 @@
 package de.neuefische.backend;
 
+import de.neuefische.backend.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

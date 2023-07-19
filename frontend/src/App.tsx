@@ -7,8 +7,6 @@ import FormularContainer from "./FormularContainer.tsx";
 import {Animal} from "./Utils.tsx";
 import CategoryChips from "./CategoryChips.tsx";
 import Footer from "./Footer.tsx";
-import LoginPage from "./LoginPage.tsx";
-
 
 function App() {
     const [animals, setAnimals] = useState<Animal[]>([]);
@@ -36,7 +34,6 @@ function App() {
                             animalId={animalId} setEditMode={setEditMode}
                             editMode={editMode}
                         />
-                        <LoginPage/>
                         <Footer/>
                     </Grid>)
                 :
