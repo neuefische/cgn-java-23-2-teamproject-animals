@@ -36,6 +36,7 @@ function App() {
                             animalId={animalId} setEditMode={setEditMode}
                             editMode={editMode}
                         />
+                        <LoginPage/>
                         <Footer/>
                     </Grid>)
                 :
@@ -52,7 +53,7 @@ function App() {
                         />
                         <ListContainer setAnimals={setAnimals} animals={animals} setAnimalId={setAnimalId}/>
 
-                        <LoginPage/>
+
                         <Footer/>
                     </Grid>)}
         </Box>
