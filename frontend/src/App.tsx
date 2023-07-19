@@ -7,6 +7,7 @@ import FormularContainer from "./FormularContainer.tsx";
 import {Animal} from "./Utils.tsx";
 import CategoryChips from "./CategoryChips.tsx";
 import Footer from "./Footer.tsx";
+import LoginPage from "./LoginPage.tsx";
 
 
 function App() {
@@ -50,6 +51,8 @@ function App() {
                             editMode={editMode}
                         />
                         <ListContainer setAnimals={setAnimals} animals={animals} setAnimalId={setAnimalId}/>
+
+                        <LoginPage/>
                         <Footer/>
                     </Grid>)}
         </Box>
