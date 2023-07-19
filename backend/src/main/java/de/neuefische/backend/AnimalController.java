@@ -1,5 +1,6 @@
 package de.neuefische.backend;
 
+import de.neuefische.backend.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @RestController
@@ -47,4 +49,15 @@ public class AnimalController {
         }
     }
 
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorMessage handleException(NoSuchElementException exception) {
+        return new ErrorMessage(exception.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage handleRuntimeExceptions(Exception exception) {
+        return new ErrorMessage(exception.getMessage());
+    }
 }

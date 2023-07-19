@@ -41,4 +41,5 @@ public class AnimalService {
         isEditAnimal.setType(dtoAnimal.getType());
         return animalRepository.save(isEditAnimal);
     }
+
 }

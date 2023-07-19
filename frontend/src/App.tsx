@@ -8,7 +8,6 @@ import {Animal} from "./Utils.tsx";
 import CategoryChips from "./CategoryChips.tsx";
 import Footer from "./Footer.tsx";
 
-
 function App() {
     const [animals, setAnimals] = useState<Animal[]>([]);
     const [editMode, setEditMode] = useState(false);
@@ -50,6 +49,8 @@ function App() {
                             editMode={editMode}
                         />
                         <ListContainer setAnimals={setAnimals} animals={animals} setAnimalId={setAnimalId}/>
+
+
                         <Footer/>
                     </Grid>)}
         </Box>
