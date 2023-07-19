@@ -54,14 +54,14 @@ function FormularContainer({setAnimals, animals, animalId, setEditMode, editMode
     return (
         <Grid item xs={6} sx={{}}>
             <Item variant="outlined" sx={{mh: 100}}>
-                <Typography>Neues Tier hinzufügen</Typography>
+                <Typography align={"left"} variant={"h5"}>Type in information about your animal</Typography>
                 <form onSubmit={addAnimal} style={{display: "flex", flexDirection: "column"}}>
 
-                    <TextField label="Animal Name" variant="outlined" value={name} inputRef={animalRef as any}
+                    <TextField label="name" variant="outlined" value={name} inputRef={animalRef as any}
                                onChange={(e) => setName(e.target.value)}/>
-                    <TextField label="Animal Type" variant="outlined" value={type} inputRef={animalRef as any}
+                    <TextField label="type" variant="outlined" value={type} inputRef={animalRef as any}
                                onChange={(e) => setType(e.target.value)}/>
-                    <Button variant="contained" type="submit" style={{margin: 4, textTransform: "none"}}>Add</Button>
+                    <Button variant="contained" type="submit" style={{margin: 4, textTransform: "none"}}>add</Button>
                 </form>
                 {editMode && (<Button variant="contained" onClick={() => {
                     updateAnimal(animalId)
