@@ -18,4 +18,5 @@ public class Animal {
     private Type type;
     private String dateOfBirth;
     private String imageUrl;
+    private String AnimalUserId;
 }

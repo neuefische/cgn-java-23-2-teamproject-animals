@@ -1,5 +1,8 @@
 package de.neuefische.backend;
+import de.neuefische.backend.security.AnimalUser;
+import de.neuefische.backend.security.AnimalUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +14,8 @@ public class AnimalService {
     private final UuidService uuidService;
     private final FileUploadService fileUploadService;
     private final AnimalRepository animalRepository;
+    private final AnimalUserRepository animalUserRepository;
+
 
     public Animal addAnimal(MultipartFile file, DtoAnimal dtoAnimal) throws Exception {
         String id = uuidService.generateUUID();
@@ -21,6 +26,10 @@ public class AnimalService {
         animal.setFavoriteFood(dtoAnimal.getFavoriteFood());
         animal.setType(dtoAnimal.getType());
         animal.setDateOfBirth(dtoAnimal.getDateOfBirth());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        AnimalUser animalUser = animalUserRepository.findByUsername(username)
+                .orElseThrow(() -> new Exception("could not find username"));
+        animal.setAnimalUserId(animalUser.id());
         animalRepository.save(animal);
         return animal;
     }
@@ -34,7 +43,7 @@ public class AnimalService {
     }
 
     public Animal editAnimal(DtoAnimal dtoAnimal, String id) throws Exception {
-        Animal isEditAnimal = animalRepository.findById(id).orElseThrow(() -> new RuntimeException("could not find animal"));
+        Animal isEditAnimal = animalRepository.findById(id).orElseThrow(() -> new Exception("could not find animal"));
         isEditAnimal.setName(dtoAnimal.getName());
         isEditAnimal.setFavoriteFood(dtoAnimal.getFavoriteFood());
         isEditAnimal.setDateOfBirth(dtoAnimal.getDateOfBirth());
