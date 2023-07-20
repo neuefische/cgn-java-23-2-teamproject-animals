@@ -8,10 +8,12 @@ type Props = {
     animals: Animal[],
     setAnimals: React.Dispatch<React.SetStateAction<Animal[]>>
     setAnimalId: React.Dispatch<React.SetStateAction<string>>
+    setCurrentAnimal: React.Dispatch<React.SetStateAction<Animal>>
+    setShowAnimalMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 
-function ListContainer({animals, setAnimals, setAnimalId}: Props) {
+function ListContainer({animals, setAnimals, setAnimalId, setCurrentAnimal, setShowAnimalMode}: Props) {
 
     function deleteAnimal(id: string) {
         axios.delete(`/api/animals/${id}`)
@@ -31,6 +33,8 @@ function ListContainer({animals, setAnimals, setAnimalId}: Props) {
                                 animal={animal}
                                 deleteAnimal={deleteAnimal}
                                 setAnimalId={setAnimalId}
+                                setCurrentAnimal={setCurrentAnimal}
+                                setShowAnimalMode={setShowAnimalMode}
                             />
                         ))
                     }

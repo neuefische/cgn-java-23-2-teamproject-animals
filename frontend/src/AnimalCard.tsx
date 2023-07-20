@@ -8,10 +8,12 @@ type Props = {
     animal: Animal,
     deleteAnimal: (id: string) => void
     setAnimalId: React.Dispatch<React.SetStateAction<string>>
+    setCurrentAnimal: React.Dispatch<React.SetStateAction<Animal>>
+    setShowAnimalMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 
-function AnimalCard({animal, deleteAnimal, setAnimalId}: Props) {
+function AnimalCard({animal, deleteAnimal, setAnimalId, setCurrentAnimal, setShowAnimalMode}: Props) {
 
     function handleEditClick(id: string) {
         setAnimalId(id)
@@ -24,12 +26,25 @@ function AnimalCard({animal, deleteAnimal, setAnimalId}: Props) {
                 <Typography sx={{fontSize: 14}} color="text.secondary">
                     Name: {animal.name}
                 </Typography>
+                <Typography sx={{fontSize: 14}} color="text.secondary">
+                    favorite food: {animal.favoriteFood}
+                </Typography>
+                <Typography sx={{fontSize: 14}} color="text.secondary">
+                    type: {animal.type}
+                </Typography>
+                <Typography sx={{fontSize: 14}} color="text.secondary">
+                    date of birth: {animal.dateOfBirth}
+                </Typography>
             </CardContent>
             <CardContent sx={{
                 display: "flex", alignItems: "center", p: 0
             }}>
                 <CardActions>
                     <Button
+                        onClick={() => {
+                            setCurrentAnimal(animal)
+                            setShowAnimalMode(prev => !prev)
+                        }}
                         variant="contained"
                         startIcon={<VisibilityIcon/>}
                         size="small" sx={{textTransform: "none"}}>show animal</Button>
