@@ -1,5 +1,6 @@
 package de.neuefische.backend;
 
+import de.neuefische.backend.security.AnimalUser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
@@ -16,7 +17,9 @@ class AnimalServiceTest {
     AnimalRepository animalRepository = spy(AnimalRepository.class);
     UuidService uuidService = spy(UuidService.class);
     FileUploadService fileUploadService = mock(FileUploadService.class);
-    AnimalService animalService = new AnimalService(uuidService, fileUploadService, animalRepository);
+
+    AnimalUserService animalUserService = mock(AnimalUserService.class);
+    AnimalService animalService = new AnimalService(uuidService, fileUploadService, animalRepository, animalUserService);
 
 
     @Test
@@ -47,10 +50,12 @@ class AnimalServiceTest {
                 dtoAnimal.getFavoriteFood(),
                 dtoAnimal.getType(),
                 dtoAnimal.getDateOfBirth(),
-                imageUrl
+                imageUrl,
+                "1"
 
         );
         when(uuidService.generateUUID()).thenReturn("1");
+        when(animalUserService.getCurrentUserId()).thenReturn(new AnimalUser("1", "collins", "collins"));
         when(animalRepository.save(expected)).thenReturn(expected);
         when(fileUploadService.getImageURL(mockFile)).thenReturn(imageUrl);
         Animal actual = animalService.addAnimal(mockFile, dtoAnimal);
@@ -61,13 +66,13 @@ class AnimalServiceTest {
     @Test
     void test_getAllAnimals() {
         when(animalRepository.findAll()).thenReturn(Arrays.asList(
-                new Animal("1", "cat", "fish", Type.CAT, "14/02/2002", "imageUrl"),
-                new Animal("2", "dog", "fish", Type.DOG, "14/02/2004", "imageUrl2")
+                new Animal("1", "cat", "fish", Type.CAT, "14/02/2002", "imageUrl", "1"),
+                new Animal("2", "dog", "fish", Type.DOG, "14/02/2004", "imageUrl2", "1")
         ));
          List<Animal> actual = animalService.getAllAnimals();
          List<Animal> expected = Arrays.asList(
-                 new Animal("1", "cat", "fish", Type.CAT, "14/02/2002", "imageUrl"),
-                 new Animal("2", "dog", "fish", Type.DOG, "14/02/2004", "imageUrl2")
+                 new Animal("1", "cat", "fish", Type.CAT, "14/02/2002", "imageUrl", "1"),
+                 new Animal("2", "dog", "fish", Type.DOG, "14/02/2004", "imageUrl2", "1")
          );
         Assertions.assertEquals(expected, actual);
     }
@@ -81,10 +86,10 @@ class AnimalServiceTest {
 
     @Test
     void test_updateAnimal() throws Exception {
-        when(animalRepository.findById("1")).thenReturn(Optional.of(new Animal("1", "cat", "fish", Type.CAT, "14/02/2002", "imageUrl")));
+        when(animalRepository.findById("1")).thenReturn(Optional.of(new Animal("1", "cat", "fish", Type.CAT, "14/02/2002", "imageUrl", "1")));
         DtoAnimal dtoAnimal = new DtoAnimal("cat", "fish", "14/02/2002", Type.CAT);
         Animal actual = animalService.editAnimal(dtoAnimal, "1");
-        Animal expected = new Animal("1", "cat", "fish", Type.CAT, "14/02/2002", "imageUrl");
+        Animal expected = new Animal("1", "cat", "fish", Type.CAT, "14/02/2002", "imageUrl", "1");
         Assertions.assertNotEquals(expected, actual);
     }
 }

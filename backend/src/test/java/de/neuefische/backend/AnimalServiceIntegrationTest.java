@@ -74,7 +74,7 @@ class AnimalServiceIntegrationTest {
     @Test
     @DirtiesContext
     void test_deleteAnimal() throws Exception {
-        Animal newAnimal = new Animal("1", "cat", "fish", Type.CAT, "14/02/2002", "imageUrl");
+        Animal newAnimal = new Animal("1", "cat", "fish", Type.CAT, "14/02/2002", "imageUrl", "1");
         animalRepository.save(newAnimal);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/animals/1"))
                 .andExpect(status().isOk());
@@ -84,11 +84,11 @@ class AnimalServiceIntegrationTest {
     @Test
     @DirtiesContext
     void test_editAnimal() throws Exception {
-        Animal newAnimal = new Animal("1", "cat", "fish", Type.CAT, "14/02/2002", "imageUrl");
+        Animal newAnimal = new Animal("1", "cat", "fish", Type.CAT, "14/02/2002", "imageUrl", "1");
         animalRepository.save(newAnimal);
         mockMvc.perform(
                         MockMvcRequestBuilders.put("/api/animals/1")
-                                .content(objectMapper.writeValueAsBytes(new Animal("1", "dog", "bone", Type.DOG, "14/02/2000", "imageUrl")))
+                                .content(objectMapper.writeValueAsBytes(new Animal("1", "dog", "bone", Type.DOG, "14/02/2000", "imageUrl", "1")))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
